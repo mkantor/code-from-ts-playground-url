@@ -1,19 +1,43 @@
+import { Readable } from "stream"
+import * as readline from "readline"
 import { decompressFromEncodedURIComponent } from "lz-string"
 
-// Expected invocation is `node path/to/index.js $url`.
-if (process.argv.length !== 3) {
-  throw new Error(
-    "This script expects a single command-line argument (the TypeScript Playground URL to decode).",
-  )
+function codeFromUrl(url: URL): string | null {
+  return decompressFromEncodedURIComponent(url.hash.replace(/^#code\//, ""))
 }
 
-const url = process.argv[2]
-const code = decompressFromEncodedURIComponent(new URL(url).hash.replace(/^#code\//, ""))
+async function main(): Promise<void> {
+  // Expected invocation is `node path/to/index.js $url`. If $url is "-" or
+  // there are no arguments, read from STDIN.
+  let lines
+  if (
+    process.argv.length < 3 ||
+    (process.argv.length === 3 && process.argv[2] === "-")
+  ) {
+    process.stdin.setEncoding("utf8")
+    lines = readline.createInterface({ input: process.stdin })
+  } else {
+    lines = Readable.from(process.argv.slice(2))
+  }
 
-if (typeof code !== "string") {
-  throw new Error(
-    `Failed to decode URL. Is "${url}" a valid TypeScript Playground URL?`,
-  )
+  for await (const line of lines) {
+    const trimmedLine = line.trim()
+    if (trimmedLine.length === 0) {
+      throw new Error("No URL was provided.")
+    }
+
+    const code = codeFromUrl(new URL(trimmedLine))
+    if (typeof code !== "string" || code.length === 0) {
+      throw new Error(
+        `Failed to decode URL. Is "${trimmedLine}" a valid TypeScript Playground URL?`,
+      )
+    }
+
+    console.log(code)
+  }
 }
 
-console.log(code)
+main().catch((error: unknown) => {
+  console.error(error)
+  process.exitCode = 1
+})
