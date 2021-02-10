@@ -1,4 +1,4 @@
-import { decompressFromBase64 } from "lz-string"
+import { decompressFromEncodedURIComponent } from "lz-string"
 
 // Expected invocation is `node path/to/index.js $url`.
 if (process.argv.length !== 3) {
@@ -8,7 +8,7 @@ if (process.argv.length !== 3) {
 }
 
 const url = process.argv[2]
-const code = decompressFromBase64(new URL(url).hash.replace(/^#code\//, ""))
+const code = decompressFromEncodedURIComponent(new URL(url).hash.replace(/^#code\//, ""))
 
 if (typeof code !== "string") {
   throw new Error(
