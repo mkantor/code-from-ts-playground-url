@@ -9,7 +9,7 @@ function codeFromUrl(url: URL): string | null {
 async function main(): Promise<void> {
   // Expected invocation is `node path/to/index.js $url`. If $url is "-" or
   // there are no arguments, read from STDIN.
-  let inputs
+  let inputs: AsyncIterable<string>
   if (
     process.argv.length < 3 ||
     (process.argv.length === 3 && process.argv[2] === "-")
