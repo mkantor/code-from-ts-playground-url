@@ -14,8 +14,9 @@ async function main(): Promise<void> {
     process.argv.length < 3 ||
     (process.argv.length === 3 && process.argv[2] === "-")
   ) {
-    process.stdin.setEncoding("utf8")
-    inputs = readline.createInterface({ input: process.stdin })
+    inputs = readline.createInterface({
+      input: process.stdin.setEncoding("utf8"),
+    })
   } else {
     inputs = Readable.from(process.argv.slice(2))
   }
