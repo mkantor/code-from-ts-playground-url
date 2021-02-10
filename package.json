@@ -1,6 +1,6 @@
 {
   "name": "code-from-ts-playground-url",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "index.js",
   "scripts": {
     "start": "tsc --build --clean && tsc --build && ./index.js"
