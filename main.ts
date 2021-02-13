@@ -6,9 +6,13 @@ function codeFromUrl(url: URL): string | null {
   return decompressFromEncodedURIComponent(url.hash.replace(/^#code\//, ""))
 }
 
+const usage = `Usage:
+  code-from-ts-playground-url <url>...
+  cat urls.txt | code-from-ts-playground-url [-]`
+
 async function main(): Promise<void> {
-  // Expected invocation is `node path/to/index.js $url`. If $url is "-" or
-  // there are no arguments, read from STDIN.
+  // Expected argv is `node path/to/index.js $url`. If $url is "-" or there are
+  // arguments, read from STDIN.
   let inputs: AsyncIterable<string>
   if (
     process.argv.length < 3 ||
@@ -39,6 +43,7 @@ async function main(): Promise<void> {
 }
 
 main().catch((error: unknown) => {
-  console.error(error)
+  console.error(error instanceof Error ? error.message : error)
+  console.error(usage)
   process.exitCode = 1
 })
