@@ -6,7 +6,8 @@
     "code-from-ts-playground-url": "./index.js"
   },
   "scripts": {
-    "start": "tsc --build --clean && tsc --build && ./index.js"
+    "build": "tsc --build --clean && tsc --build",
+    "start": "npm run build && ./index.js"
   },
   "dependencies": {
     "lz-string": "^1.4.4"
