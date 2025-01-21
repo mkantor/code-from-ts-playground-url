@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
+    "exactOptionalPropertyTypes": true,
+    "module": "commonjs",
+    "noUncheckedIndexedAccess": true,
     "strict": true,
-    "target": "es2020",
-    "module": "commonjs"
+    "target": "es2020"
   }
 }
