@@ -12,7 +12,7 @@ const usage = `Usage:
 
 async function main(): Promise<void> {
   // Expected argv is `node path/to/index.js $url`. If $url is "-" or there are
-  // arguments, read from STDIN.
+  // no arguments, read from STDIN.
   let inputs: AsyncIterable<string>
   if (
     process.argv.length < 3 ||
