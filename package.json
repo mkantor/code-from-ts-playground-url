@@ -1,6 +1,7 @@
 {
   "name": "code-from-ts-playground-url",
   "version": "0.0.2",
+  "license": "UNLICENSE",
   "main": "index.js",
   "bin": {
     "code-from-ts-playground-url": "./index.js"
