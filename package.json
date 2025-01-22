@@ -6,6 +6,7 @@
   "bin": {
     "code-from-ts-playground-url": "./index.js"
   },
+  "repository": "github:mkantor/code-from-ts-playground-url",
   "scripts": {
     "build": "tsc --build",
     "clean": "tsc --build --clean",
@@ -17,5 +18,8 @@
   "devDependencies": {
     "@types/node": "^22.10.7",
     "typescript": "^5.7.3"
-  }
+  },
+  "files": [
+    "*.js"
+  ]
 }
